@@ -1,0 +1,5 @@
+name: NoHoe
+main: io.github.sataniel98.nohoe.NoHoe
+version: ${project.version}
+author: Daniel Saukel
+api-version: 1.13
