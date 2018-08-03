@@ -46,7 +46,7 @@ public class NoHoe extends JavaPlugin implements Listener {
                 getConfig().load(config);
             } else {
                 config.createNewFile();
-                getConfig().set("disabled", Arrays.asList("DIAMOND_HOE:220"));
+                getConfig().set("disabled", Arrays.asList("DIAMOND_HOE:220", "STONE_HOE"));
                 getConfig().save(config);
             }
         } catch (IOException | InvalidConfigurationException exception) {
@@ -56,14 +56,14 @@ public class NoHoe extends JavaPlugin implements Listener {
         for (String string : getConfig().getStringList("disabled")) {
             String[] args = string.split(":");
             Material material;
-            short durability;
+            Short durability;
             try {
                 material = Material.valueOf(args[0]);
             } catch (IllegalArgumentException exception) {
                 continue;
             }
             try {
-                durability = args.length == 2 ? Short.parseShort(args[1]) : 0;
+                durability = args.length == 2 ? Short.parseShort(args[1]) : null;
             } catch (NumberFormatException exception) {
                 continue;
             }
@@ -88,7 +88,7 @@ public class NoHoe extends JavaPlugin implements Listener {
         Material tool = event.getItem().getType();
         short durability = event.getItem().getDurability();
         for (Entry<Material, Short> entry : disabled.entrySet()) {
-            if (entry.getKey() == tool && entry.getValue() == durability) {
+            if (entry.getKey() == tool && (entry.getValue() == null || entry.getValue() == durability)) {
                 event.setCancelled(true);
                 return;
             }
