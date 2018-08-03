@@ -39,7 +39,9 @@ public class NoHoe extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        getDataFolder().mkdir();
+        if (!getDataFolder().exists()) {
+            getDataFolder().mkdirs();
+        }
         File config = new File(getDataFolder(), "config.yml");
         try {
             if (config.exists()) {
@@ -49,8 +51,8 @@ public class NoHoe extends JavaPlugin implements Listener {
                 getConfig().set("disabled", Arrays.asList("DIAMOND_HOE:220", "STONE_HOE"));
                 getConfig().save(config);
             }
-        } catch (IOException | InvalidConfigurationException exception) {
-            exception.printStackTrace();
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
         }
 
         for (String string : getConfig().getStringList("disabled")) {
@@ -59,12 +61,12 @@ public class NoHoe extends JavaPlugin implements Listener {
             Short durability;
             try {
                 material = Material.valueOf(args[0]);
-            } catch (IllegalArgumentException exception) {
+            } catch (IllegalArgumentException e) {
                 continue;
             }
             try {
                 durability = args.length == 2 ? Short.parseShort(args[1]) : null;
-            } catch (NumberFormatException exception) {
+            } catch (NumberFormatException e) {
                 continue;
             }
             disabled.put(material, durability);
