@@ -82,6 +82,9 @@ public class NoHoe extends JavaPlugin implements Listener {
         if (clicked != Material.DIRT && !clicked.name().contains("GRASS") && !clicked.name().equals("GRASS_PATH")) {
             return;
         }
+        if (event.getItem() == null) {
+            return;
+        }
         Material tool = event.getItem().getType();
         short durability = event.getItem().getDurability();
         for (Entry<Material, Short> entry : disabled.entrySet()) {
