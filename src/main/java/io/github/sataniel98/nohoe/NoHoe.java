@@ -79,7 +79,7 @@ public class NoHoe extends JavaPlugin implements Listener {
             return;
         }
         Material clicked = event.getClickedBlock().getType();
-        if (clicked != Material.DIRT && !clicked.name().contains("GRASS") && !clicked.name().equals("GRASS_PATH")) {
+        if (clicked != Material.DIRT && !clicked.name().contains("GRASS") && !clicked.name().equals("GRASS_PATH") && !clicked.name().equals("COARSE_DIRT")) {
             return;
         }
         if (event.getItem() == null) {
